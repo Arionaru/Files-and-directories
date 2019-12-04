@@ -14,14 +14,12 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class DirectoryService {
 
     private DirectoryRepo directoryRepo;
     private FilesRepo filesRepo;
-    private List<Files> allFiles;
 
     @Autowired
     public DirectoryService(DirectoryRepo directoryRepo, FilesRepo filesRepo) {
@@ -43,7 +41,7 @@ public class DirectoryService {
             return "Директория не найдена";
         }
         convertFileToDirectory(dir);
-        return "Успешно";
+        return "";
     }
 
     private void convertFileToDirectory(File dir) {
@@ -58,7 +56,7 @@ public class DirectoryService {
             long size = 0;
             for (File file : filesAndDirs) {
                 Files dirFile = new Files();
-                dirFile.setId_dir(directory);
+                dirFile.setDirectory(directory);
                 dirFile.setFileName(file.getName());
                 if (file.isFile()) {
                     dirFile.setFile(true);

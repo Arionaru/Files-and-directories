@@ -2,8 +2,8 @@ package ru.ariona.filesanddirectories.domen;
 
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Entity
 public class Directory {
@@ -22,7 +22,7 @@ public class Directory {
 
     private long filesSize;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "id_dir", targetEntity = Files.class)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "directory", targetEntity = Files.class)
     private List<Files> files;
 
     public long getId() {
@@ -73,5 +73,21 @@ public class Directory {
         this.filesSize = filesSize;
     }
 
+    private List<Files> getFiles() {
+        return files;
+    }
+
+    public void setFiles(List<Files> files) {
+        this.files = files;
+    }
+
+    public List<Files> getOnlyFiles() {
+
+        return files.stream().filter(f -> f.isFile()).sorted().collect(Collectors.toList());
+    }
+
+    public List<Files> getOnlyDirs() {
+        return files.stream().filter(f -> !f.isFile()).sorted().collect(Collectors.toList());
+    }
 
 }

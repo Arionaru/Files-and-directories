@@ -14,11 +14,11 @@
         <td>${dir.size}</td>
         </tr>
     </#list>
-    <#--<#list files as file>
+    <#list files as file>
         <tr>
         <td>${file.fileName}</td>
         <td>${file.size}</td>
         </tr>
-    </#list>-->
+    </#list>
     </table>
 </@c.page>

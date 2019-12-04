@@ -2,12 +2,12 @@
 <@c.page>
 
 
-    ${message?if_exists}
+    <h3>${message?if_exists}</h3>
 
     <div>
         <form method="POST" action="/">
             <div class="input-group mb-3">
-                Новая директория: <input type="text" class="form-control" name="dir" />
+                <label>Новая директория: </label><input type="text" class="form-control" name="dir" />
                 <button class="btn btn-primary" type="submit">Добавить в список</button>
             </div>
         </form>
@@ -23,7 +23,6 @@
             <th> </th>
         </tr>
         <#list dirs as dir>
-
         <tr>
             <td>${dir.date?if_exists}</td>
             <td>${dir.link?if_exists}</td>
@@ -32,8 +31,6 @@
             <td>${dir.filesSize}</td>
             <td><button class="btn btn-secondary" type="button" onclick="window.open('/${dir.id}')">Файлы</button></td>
         </tr>
-
-
         </#list>
     </table>
 
