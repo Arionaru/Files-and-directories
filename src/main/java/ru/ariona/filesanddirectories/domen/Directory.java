@@ -2,6 +2,7 @@ package ru.ariona.filesanddirectories.domen;
 
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -33,8 +34,9 @@ public class Directory {
         this.id = id;
     }
 
-    public Date getDate() {
-        return date;
+    public String getDate() {
+        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy HH:mm");
+        return format.format(date);
     }
 
     public void setDate(Date date) {
