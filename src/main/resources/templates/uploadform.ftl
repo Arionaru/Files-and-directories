@@ -1,17 +1,20 @@
 <#import "common.ftl" as c>
 <@c.page>
 
+    <h2>Директории и файлы</h2>
 
     <h3>${message?if_exists}</h3>
 
     <div>
         <form method="POST" action="/">
             <div class="input-group mb-3">
-                <label>Новая директория: </label><input type="text" class="form-control" name="dir" />
+                <label for="inputDir" class="col-sm-2 col-form-label">Новая директория: </label>
+                <input type="text" class="form-control" name="dir" id="inputDir"/>
                 <button class="btn btn-primary" type="submit">Добавить в список</button>
             </div>
         </form>
     </div>
+
 
     <table class="table table-hover">
         <tr>
