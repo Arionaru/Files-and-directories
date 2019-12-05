@@ -75,10 +75,6 @@ public class Directory {
         this.filesSize = filesSize;
     }
 
-    private List<Files> getFiles() {
-        return files;
-    }
-
     public void setFiles(List<Files> files) {
         this.files = files;
     }
