@@ -69,26 +69,26 @@ public class Files implements Comparable<Files>{
 
     @Override
     public int compareTo(Files o) {
-        List<Character> first = new LinkedList<>(this.fileName.chars()
+        LinkedList<Character> first = new LinkedList<>(this.fileName.chars()
                                                     .mapToObj(c -> (char) c)
                                                     .collect(Collectors.toList()));
-        List<Character> second = new LinkedList<>(o.fileName.chars()
+        LinkedList<Character> second = new LinkedList<>(o.fileName.chars()
                                                     .mapToObj(c -> (char) c)
                                                     .collect(Collectors.toList()));
 
         int length = (first.size()<second.size())?first.size():second.size();
         for (int i = 0; i < length; i++) {
-            if (isDigit(((LinkedList<Character>) first).peekFirst())
-                && isDigit(((LinkedList<Character>) second).peekFirst())) {
+            if (isDigit(first.peekFirst())
+                && isDigit(second.peekFirst())) {
 
                 StringBuilder sb1 = new StringBuilder();
-                while (isDigit(((LinkedList<Character>) first).peekFirst())) {
-                    sb1.append(((LinkedList<Character>) first).pollFirst());
+                while (isDigit(first.peekFirst())) {
+                    sb1.append(first.pollFirst());
                 }
 
                 StringBuilder sb2 = new StringBuilder();
-                while (isDigit(((LinkedList<Character>) second).peekFirst())) {
-                    sb2.append(((LinkedList<Character>) second).pollFirst());
+                while (isDigit(second.peekFirst())) {
+                    sb2.append((second.pollFirst()));
                 }
 
                 int int1 = Integer.parseInt(sb1.toString());
@@ -98,8 +98,8 @@ public class Files implements Comparable<Files>{
                 }
 
             }
-            char one = Character.toLowerCase(((LinkedList<Character>) first).pollFirst());
-            char two = Character.toLowerCase(((LinkedList<Character>) second).pollFirst());
+            char one = Character.toLowerCase(first.pollFirst());
+            char two = Character.toLowerCase(second.pollFirst());
             if (one != two) {
                 return one - two;
             }
