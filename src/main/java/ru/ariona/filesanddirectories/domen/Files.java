@@ -5,9 +5,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 @Entity
 public class Files implements Comparable<Files>{
@@ -70,37 +73,49 @@ public class Files implements Comparable<Files>{
 
     @Override
     public int compareTo(Files o) {
-        List<Integer> first = getNumbers(fileName);
-        List<Integer> second = getNumbers(o.fileName);
+        List<Character> first = new LinkedList<>(this.fileName.chars()
+                                                    .mapToObj(c -> (char) c)
+                                                    .collect(Collectors.toList()));
+        List<Character> second = new LinkedList<>(o.fileName.chars()
+                                                    .mapToObj(c -> (char) c)
+                                                    .collect(Collectors.toList()));
 
-        int iter_count;
-        if (first.size() >= second.size()) {
-            iter_count = second.size();
-        } else {
-            iter_count = first.size();
-        }
+        int length = (first.size()<second.size())?first.size():second.size();
+        for (int i = 0; i < length; i++) {
+            if (isDigit(((LinkedList<Character>) first).peekFirst())
+                && isDigit(((LinkedList<Character>) second).peekFirst())) {
 
-        for (int i = 0; i < iter_count; i++) {
-            int comp = first.get(i).compareTo(second.get(i));
-            if (comp != 0) {
-                return comp;
+                StringBuilder sb1 = new StringBuilder();
+                while (isDigit(((LinkedList<Character>) first).peekFirst())) {
+                    sb1.append(((LinkedList<Character>) first).pollFirst());
+                }
+
+                StringBuilder sb2 = new StringBuilder();
+                while (isDigit(((LinkedList<Character>) second).peekFirst())) {
+                    sb2.append(((LinkedList<Character>) second).pollFirst());
+                }
+
+                int int1 = Integer.parseInt(sb1.toString());
+                int int2 = Integer.parseInt(sb2.toString());
+                if (int1 != int2) {
+                    return int1 - int2;
+                }
+
             }
-        }
+            char one = Character.toLowerCase(((LinkedList<Character>) first).pollFirst());
+            char two = Character.toLowerCase(((LinkedList<Character>) second).pollFirst());
+            if (one != two) {
+                return one - two;
+            }
 
-        return fileName.compareToIgnoreCase(o.fileName);
+        }
+        return -1;
     }
 
-    private List<Integer> getNumbers(String s) {
-        List<Integer> list = new ArrayList<>();
-        Pattern pattern = Pattern.compile("\\d+");
-        Matcher matcher = pattern.matcher(s);
-        int start = 0;
-        while (matcher.find(start)) {
-            String value = s.substring(matcher.start(), matcher.end());
-            list.add(Integer.parseInt(value));
-            start = matcher.end();
-        }
-        return list;
+    private boolean isDigit(char c) {
+        return Character.isDigit(c);
     }
+
+
 
 }
