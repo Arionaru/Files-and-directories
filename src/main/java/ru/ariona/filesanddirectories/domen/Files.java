@@ -5,7 +5,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.stream.Collectors;
 
 @Entity
