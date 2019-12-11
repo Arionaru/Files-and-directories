@@ -111,7 +111,4 @@ public class Files implements Comparable<Files>{
     private boolean isDigit(char c) {
         return Character.isDigit(c);
     }
-
-
-
 }
